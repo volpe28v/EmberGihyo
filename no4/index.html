@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>実践入門 Ember.js</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="libs/jquery-2.1.3.min.js"></script>
+    <script src="libs/handlebars-v2.0.0.js"></script>
+    <script src="libs/ember.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body>
+
+<script type="text/x-handlebars">
+  <header>
+    <h1>Ember.js ブログ</h1>
+  </header>
+
+  {{outlet}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="index">
+  <div id="hello-message">ようこそ</div>
+
+  {{link-to "記事を見る" "posts"}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="posts">
+  <h1>{{pageTitle}}</h1>
+
+  {{outlet}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="posts/index">
+  <ul>
+    {{#each post in model}}
+      <li>{{link-to post.title "posts.show" post}}</li>
+    {{/each}}
+  </ul>
+</script>
+
+<script type="text/x-handlebars" data-template-name="posts/show">
+  <h2>{{model.title}}</h2>
+
+  <pre>
+    {{truncate-text text=model.body}}
+  </pre>
+
+  {{link-to "戻る" "posts.index"}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="loading">
+  データ読込中...
+</script>
+
+<script type="text/x-handlebars" data-template-name="components/truncate-text">
+  {{#if isExpanded}}
+    {{text}}
+  {{else}}
+    {{truncate text length=length}} <a href="#" {{action "expand"}}>{{expandText}}</a>
+  {{/if}}
+</script>
+
+  </body>
+</html>
