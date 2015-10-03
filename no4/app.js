@@ -22,7 +22,7 @@ App.PostsRoute = Ember.Route.extend({
 
 App.PostsShowRoute = Ember.Route.extend({
   model: function(params) {
-    return this.modelFor('posts'),filter(function(post){
+    return this.modelFor('posts').filter(function(post){
       return post.id === Number(params.post_id);
     })[0];
   },
